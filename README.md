@@ -1,5 +1,11 @@
 # async-pool
 
+## Usage
+
+`yarn add promise-pool`
+
+# Development
+
 To install dependencies:
 
 ```bash

@@ -1,5 +1,5 @@
 {
-  "name": "async-pool",
+  "name": "promise-pool",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
@@ -7,5 +7,21 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test bun test",
+    "test:w": "NODE_ENV=test bun test --watch",
+    "test:wl": "LOG_LEVEL=verbose NODE_ENV=test bun test --watch",
+    "build": "bun build ./lib/pool.ts --outdir ./dist/promisePool.js"
+  },
+  "bin": {
+    "promisePool": "./dist/promisePool.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dubsado/promise-pool"
+  },
+  "directories": {
+    "src": "./src"
   }
 }
