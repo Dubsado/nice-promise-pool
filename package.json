@@ -1,6 +1,7 @@
 {
-  "name": "promise-pool",
-  "module": "index.ts",
+  "name": "nice-promise-pool",
+  "version": "1.0.0",
+  "module": ".lib/pool.ts",
   "type": "module",
   "devDependencies": {
     "bun-types": "^0.5.0"
@@ -22,6 +23,6 @@
     "url": "git+https://github.com/Dubsado/promise-pool"
   },
   "directories": {
-    "src": "./src"
+    "lib": "./lib"
   }
 }
