@@ -15,5 +15,5 @@ describe('Run events in pool', () => {
     // size drops below the max pool size
     // that we can pop in more events to process
     // and eventually come back to completion
-    test('All randomly timed events eventually finish', async () => {})
+    test('Once the maxed out queue has an opening, events can be added', async () => {})
 })

@@ -1,1 +1,1 @@
-type Events = any[]
+type Events = Promise[]

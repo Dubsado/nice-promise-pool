@@ -1,3 +1,23 @@
+// get pool size declared
+const POOL_SIZE = parseInt(process.env.POOL_SIZE as string) || 10
+if (!POOL_SIZE || POOL_SIZE < 1) {
+    console.error(`Mising environment variable POOL_SIZE`)
+    process.exit(1)
+}
+// in memory instance of all pooled connections
+const pool: Event[] = []
+
+/**
+ * Unsafely adds an Event into the global pool
+ * @param event
+ */
+export function addEventToPool(event: Event) {
+    if (pool.length > POOL_SIZE) {
+        throw new Error('Max pool size reached')
+    }
+    pool.push(event)
+}
+
 const processInPool = async (events, poolSize) => {
     let pool = {}
 
