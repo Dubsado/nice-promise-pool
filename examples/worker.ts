@@ -1,11 +1,4 @@
-# async-pool
-
-## Usage
-
-`yarn add promise-pool`
-
-```
-import { addEventToPool, onOpenSlot, getOpenSlotCount } from "nice-promise-pool";
+import { addEventToPool, onOpenSlot, getOpenSlotCount } from "../lib/pool";
 import { queryEventDatabase } from "./utils/mockApi";
 
 const INTERVAL_TIME = 1000;
@@ -55,20 +48,3 @@ loop().then(() => {
   });
   setInterval(loop, INTERVAL_TIME);
 });
-```
-
-# Development
-
-To install dependencies:
-
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v0.5.2. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.

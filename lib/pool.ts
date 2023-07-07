@@ -13,9 +13,9 @@ const pool: EventToProcess[] = [];
 let onOpenSlotCallback: any;
 
 type Callbacks = {
-  then: (payload: any, eventToProcess: EventToProcess) => void;
-  catch: (err: unknown, eventToProcess: EventToProcess) => void;
-  finally: () => void;
+  then?: (payload: any, eventToProcess: EventToProcess) => void | null;
+  catch?: (err: unknown, eventToProcess: EventToProcess) => void | null;
+  finally?: () => void | undefined;
 };
 
 /**
@@ -34,11 +34,15 @@ export function addEventToPool(thePromise: PromiseToProcess, callbacks?: Callbac
 
   // Attach Promise's event handlers
   thePromise.then((payload: any) => {
-    callbacks?.then(payload, eventToProcess);
+    if (callbacks && callbacks.then) {
+      callbacks.then(payload, eventToProcess);
+    }
     consoleLog(`Event with id: ${eventToProcess.id} completed successfully.`);
   });
   thePromise.catch((err: unknown) => {
-    callbacks?.catch(err, eventToProcess);
+    if (callbacks && callbacks.catch) {
+      callbacks.catch(err, eventToProcess);
+    }
     consoleLog(`Event with id: ${eventToProcess.id} failed to complete.`);
   });
   thePromise.finally(() => {
@@ -47,8 +51,9 @@ export function addEventToPool(thePromise: PromiseToProcess, callbacks?: Callbac
     if (index > -1) {
       pool.splice(index, 1);
     }
-
-    callbacks?.finally();
+    if (callbacks && callbacks.finally) {
+      callbacks.finally();
+    }
     consoleLog(`Slot freed for event id: ${eventToProcess.id}`);
     // Callback to notify when there's an available slot in the pool
     if (onOpenSlotCallback) {
@@ -58,6 +63,7 @@ export function addEventToPool(thePromise: PromiseToProcess, callbacks?: Callbac
 
   // Add the newly created event object to the pool
   pool.push(eventToProcess);
+  return eventToProcess;
 }
 
 /**
