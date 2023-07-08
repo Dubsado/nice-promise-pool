@@ -1,10 +1,14 @@
-# async-pool
+<img width="521" alt="image" src="https://github.com/Dubsado/nice-promise-pool/assets/3623016/4731ced7-f793-4e86-b740-d029afd2df27">
 
 ## Usage
 
-`yarn add promise-pool`
-
+Add the dependency to your project:
+```shell
+yarn add nice-promise-pool
 ```
+## Example
+Here's an example use case where we're grabbing 0-10 events per 1 second loop. 
+```ts
 import { addEventToPool, onOpenSlot, getOpenSlotCount } from "nice-promise-pool";
 import { queryEventDatabase } from "./utils/mockApi";
 
@@ -59,16 +63,18 @@ loop().then(() => {
 
 # Development
 
+Clone this repo.
+
 To install dependencies:
 
 ```bash
 bun install
 ```
 
-To run:
+To run tests (continuously with Bun watch flag):
 
 ```bash
-bun run index.ts
+yarn test:w
 ```
 
 This project was created using `bun init` in bun v0.5.2. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
