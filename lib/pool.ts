@@ -32,11 +32,15 @@ export function addEventToPool(thePromise: PromiseToProcess, callbacks?: Callbac
     promise: thePromise,
   };
 
+  // To be able to use the resolved event in the finally block
+  let resolvedEvent: any;
+
   // Attach Promise's event handlers
   thePromise.then((payload: any) => {
     if (callbacks && callbacks.then) {
       callbacks.then(payload, eventToProcess);
     }
+    resolvedEvent = payload;
     consoleLog(`Event with id: ${eventToProcess.id} completed successfully.`);
   });
   thePromise.catch((err: unknown) => {
