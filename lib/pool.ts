@@ -62,7 +62,7 @@ export function addEventToPool(thePromise: PromiseToProcess, callbacks?: Callbac
       consoleLog(`Slot freed for event id: ${eventToProcess.id}`);
       // Callback to notify when there's an available slot in the pool
       if (onOpenSlotCallback) {
-        onOpenSlotCallback();
+        onOpenSlotCallback(resolvedEvent);
       }
     });
 
