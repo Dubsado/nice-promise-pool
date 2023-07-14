@@ -1,6 +1,6 @@
 {
   "name": "nice-promise-pool",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "module": ".lib/pool.ts",
   "type": "module",
   "devDependencies": {

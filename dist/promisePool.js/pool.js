@@ -29,26 +29,33 @@ function addEventToPool(thePromise, callbacks) {
     id: generateRandomString(10),
     promise: thePromise
   };
+  let resolvedEvent;
   thePromise.then((payload) => {
-    callbacks?.then(payload, eventToProcess);
+    if (callbacks && callbacks.then) {
+      callbacks.then(payload, eventToProcess);
+    }
+    resolvedEvent = payload;
     consoleLog(`Event with id: ${eventToProcess.id} completed successfully.`);
-  });
-  thePromise.catch((err) => {
-    callbacks?.catch(err, eventToProcess);
+  }).catch((err) => {
+    if (callbacks && callbacks.catch) {
+      callbacks.catch(err, eventToProcess);
+    }
     consoleLog(`Event with id: ${eventToProcess.id} failed to complete.`);
-  });
-  thePromise.finally(() => {
+  }).finally(() => {
     const index = pool.indexOf(eventToProcess);
     if (index > -1) {
       pool.splice(index, 1);
     }
-    callbacks?.finally();
+    if (callbacks && callbacks.finally) {
+      callbacks.finally();
+    }
     consoleLog(`Slot freed for event id: ${eventToProcess.id}`);
     if (onOpenSlotCallback) {
-      onOpenSlotCallback();
+      onOpenSlotCallback(resolvedEvent);
     }
   });
   pool.push(eventToProcess);
+  return eventToProcess;
 }
 function onOpenSlot(cb) {
   if (onOpenSlotCallback) {
